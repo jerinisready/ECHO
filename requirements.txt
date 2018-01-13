@@ -2,7 +2,7 @@ Django==1.11.2
 psycopg2==2.7.3.2
 pytz
 facebook-sdk
-reuests
+requests
 oauthlib
 requests
 requests-oauthlib
