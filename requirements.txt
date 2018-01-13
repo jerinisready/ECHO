@@ -1,0 +1,10 @@
+Django==1.11.2
+psycopg2==2.7.3.2
+pytz
+facebook-sdk
+reuests
+oauthlib
+requests
+requests-oauthlib
+requests_oauthlib
+
