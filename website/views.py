@@ -9,7 +9,10 @@ from django.template import loader
 def home(request):
     template = loader.get_template('website/index.html')
     context = {
-
+        'name': "SMS - Social Media Survey",
+        "r": [0,1,2,3,4],
     }
-    return HttpResponse(template.render(context, request))
+    r = template.render(context, request)
+    print("hello World!")
+    return HttpResponse(r)
     # instead we can use return render(request, 'website/index.html', context)
