@@ -103,3 +103,4 @@ ENV/
 #db 
 db.sqlite3
 
+.idea/*
