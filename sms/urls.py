@@ -19,10 +19,10 @@ from django.conf.urls.static import static
 
 from sms import settings
 from website import views
-
+from website import urls as weburls
 urlpatterns = [
 
     url(r'^admin/', admin.site.urls),
-    # url(r'^$',include()),
+    url(r'^',include(weburls)),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)
