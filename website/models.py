@@ -19,7 +19,6 @@ class Token(models.Model):
     validity = models.DateField(null=True, blank=True,)
 
 class fbquerymapper(models.Model):
-    querry_mapper_id = models.AutoField(primary_key=True)
     page = models.CharField (max_length=200)
 
 class socialdata(models.Model):
@@ -35,7 +34,7 @@ class socialdata(models.Model):
     sad_count = models.IntegerField()
     wow_count = models.IntegerField()
     angry_count = models.IntegerField()
-    link = models.CharField(max_length=100)
+    link = models.URLField(max_length=200 , unique= True)
 
 class socialdataquery(models.Model):
     socialdata = models.ForeignKey(socialdata,on_delete=models.CASCADE)
