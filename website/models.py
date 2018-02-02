@@ -5,11 +5,16 @@ import datetime
 from django.utils import timezone
 from django.contrib.auth.models import User
 # Create your models here.
+class request(models.Model):
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    request_data = models.CharField(max_length=500)
+
 class query(models.Model):
     is_public = models.BooleanField()
     query = models.CharField(max_length=500)
     is_active = models.BooleanField()
     name = models.CharField(max_length=100)
+    request_id = models.ForeignKey(request,on_delete=models.CASCADE)
 
 class Token(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

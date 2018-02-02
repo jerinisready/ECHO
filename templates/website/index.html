@@ -2,16 +2,20 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
 <title>SMS:Home</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link href="{% static 'layout/styles/layout.css' %}" rel="stylesheet" type="text/css" media="all">
 </head>
 <body id="top">
-
-
-
-
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
@@ -29,8 +33,7 @@
         <li><a href="#"><i class="fa fa-lg fa-home"></i></a></li>
         <li><a href="#">About</a></li>
         <li><a href="#">Contact</a></li>
-        <li><a href="login">Login</a></li>
-        <li><a href="login">Register</a></li>
+        <li><a href="#">Feedback</a></li>
       </ul>
     </div>
     <!-- ################################################################################################ -->
@@ -46,41 +49,13 @@
     <header id="header" class="hoc clear"> 
       <!-- ################################################################################################ -->
       <div id="logo" class="fl_left">
-        <h1><a href="index.html">S M S</a></h1>
+        <h1>S M S</h1>
         {# for i in r  #}
         <p1>{{ name }}</p1><br>
         {# endfor #}
       </div>
       <!-- ################################################################################################ -->
-      <nav id="mainav" class="fl_right">
-        <ul class="clear">
-          <li class="active"><a href="index.html">Home</a></li>
-          <li><a class="drop" href="#">Pages</a>
-            <ul>
-              <li><a href="pages/gallery.html">Gallery</a></li>
-              <li><a href="pages/full-width.html">Full Width</a></li>
-              <li><a href="pages/sidebar-left.html">Sidebar Left</a></li>
-              <li><a href="pages/sidebar-right.html">Sidebar Right</a></li>
-              <li><a href="pages/basic-grid.html">Basic Grid</a></li>
-            </ul>
-          </li>
-          <li><a class="drop" href="#">Dropdown</a>
-            <ul>
-              <li><a href="#">Level 2</a></li>
-              <li><a class="drop" href="#">Level 2 + Drop</a>
-                <ul>
-                  <li><a href="#">Level 3</a></li>
-                  <li><a href="#">Level 3</a></li>
-                  <li><a href="#">Level 3</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Level 2</a></li>
-            </ul>
-          </li>
-          <li><a href="#">Link Text</a></li>
-          <li><a href="#">Link Text</a></li>
-        </ul>
-      </nav>
+
       <!-- ################################################################################################ -->
     </header>
   </div>
@@ -94,8 +69,8 @@
       <h2 class="heading">out of smart people around the world</h2>
       <footer>
         <ul class="nospace inline pushright">
-          <li><a class="btn" href="#">Start Survey</a></li>
-		  <li><a class="btn" href="#">Popular Surveys</a></li>
+          <li><a class="btn" href="#"data-toggle="modal"data-target="#myModal">Populer Surveys</a></li>
+		  <li><a class="btn" href="#"data-toggle="modal"data-target="#Modal1">Start Surveys</a></li>
         </ul>
       </footer>
     </article>
@@ -103,97 +78,6 @@
   </div>
   <!-- ################################################################################################ -->
 </div>
-<!-- End Top Background Image Wrapper -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<div class="wrapper row3">
-  <section class="hoc container clear"> 
-    <!-- ################################################################################################ -->
-    <div class="btmspace-50 center">
-      <h2>Background crew</h2>
-      <p>Master Brains behind the Project</p>
-    </div>
-    <ul class="nospace group">
-      <li class="one_third first">
-        <article class="excerpt"><a href="#"><img src="images/demo/joel.jpg" alt=""></a>
-          <div class="excerpttxt">
-            <h6 class="heading font-x1">Joel V Jose</h6>
-            <ul class="nospace inline pushright font-xs">
-              <li><i class="fa fa-calendar-o"></i> College of Engineering,Kallooppara</li>
-            </ul>
-            <p>Registration number: 12151006</p>
-          </div>
-        </article>
-      </li>
-      <li class="one_third">
-        <article class="excerpt"><a href="#"><img src="images/demo/nis.jpg" alt=""></a>
-          <div class="excerpttxt">
-            <h6 class="heading font-x1">Nissam K P</h6>
-            <ul class="nospace inline pushright font-xs">
-              <li><i class="fa fa-calendar-o"></i> College of Engineering,Kallooppara</li>
-            </ul>
-            <p>Registration number: 12151007</p>
-          </div>
-        </article>
-      </li>
-      <li class="one_third">
-        <article class="excerpt"><a href="#"><img src="images/demo/shit.jpg" alt=""></a>
-          <div class="excerpttxt">
-            <h6 class="heading font-x1">Sidharth V</h6>
-            <ul class="nospace inline pushright font-xs">
-              <li><i class="fa fa-calendar-o"></i> College of Engineering,Kallooppara</li>
-            </ul>
-            <p>Registration number: 12151008</p>
-          </div>
-        </article>
-      </li>
-	  <li class="center">
-        <article class="excerpt"><a href="#"><img src="images/demo/shit.jpg" alt=""></a>
-          <div class="excerpttxt">
-            <h6 class="heading font-x1">Sivapriya S</h6>
-            <ul class="nospace inline pushright font-xs">
-              <li><i class="fa fa-calendar-o"></i> College of Engineering,Kallooppara</li>
-            </ul>
-            <p>Registration number: 12151057</p>
-          </div>
-        </article>
-      </li>
-    </ul>
-    <!-- ################################################################################################ -->
-  </section>
-</div>
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- Footer Background Image Wrapper -->
-<div class="bgded overlay" style="background-image:url('images/demo/backgrounds/04.jpg');"> 
-  <!-- ################################################################################################ -->
-  <div class="wrapper row4">
-    <footer id="footer" class="hoc clear"> 
-      <!-- ################################################################################################ -->
-      <div class="one_quarter first">	
-      </div>
-      <div class="center">
-        <h6 class="title">contact us</h6>
-        <ul class="nospace linklist contact">
-          <li><i class="fa fa-map-marker"></i>
-            <address>
-            College of Engineering, Kallooppara &amp; Mallapally, 689 603
-            </address>
-          </li>
-          <li><i class="fa fa-phone"></i> +91 (123) 456 7890<br>
-            +00 (123) 456 7890</li>
-          <li><i class="fa fa-fax"></i> +91 (123) 456 7890</li>
-          <li><i class="fa fa-envelope-o"></i> info@sms.com</li>
-        </ul>
-      </div>
-      <!-- ################################################################################################ -->
-    </footer>
-  </div>
-  <!-- ################################################################################################ -->
-  <!-- ################################################################################################ -->
-  <!-- ################################################################################################ -->
   <div class="wrapper row5">
     <div id="copyright" class="hoc clear"> 
       <!-- ################################################################################################ -->
@@ -202,19 +86,30 @@
   </div>
   <!-- ################################################################################################ -->
 </div>
-<!-- End Footer Background Image Wrapper -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
-<!-- ################################################################################################ -->
 <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
-<!-- JAVASCRIPTS -->
-<script src="layout/scripts/jquery.min.js"></script>
-<script src="layout/scripts/jquery.backtotop.js"></script>
-<script src="layout/scripts/jquery.mobilemenu.js"></script>
+<!-- MODALS -->
+
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Popular Surveys </h4>
+        </div>
+        <div class="modal-body">
+          <p>Here we have the popular surveys</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
 
 
 </body>
-
-
-
 </html>
