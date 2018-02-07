@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from .models import query,fbquerymapper,request
+from .models import Query,FbQueryMapper,request
 from django.contrib import admin
 
 # Register your models here.
-admin.site.register(query)
-admin.site.register(fbquerymapper)
+admin.site.register(Query)
+admin.site.register(FbQueryMapper)
 admin.site.register(request)

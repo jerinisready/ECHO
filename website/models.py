@@ -9,7 +9,7 @@ class request(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     request_data = models.CharField(max_length=500)
 
-class query(models.Model):
+class Query(models.Model):
     is_public = models.BooleanField()
     query = models.CharField(max_length=500)
     is_active = models.BooleanField()
@@ -19,16 +19,16 @@ class query(models.Model):
 class Token(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     token = models.CharField(max_length=64)
-    query = models.ForeignKey(query, on_delete=models.CASCADE)
+    query = models.ForeignKey(Query, on_delete=models.CASCADE)
     is_active = models.BooleanField(default=True)
     validity = models.DateField(null=True, blank=True,)
 
-class fbquerymapper(models.Model):
+class FbQueryMapper(models.Model):
     page = models.CharField (max_length=200)
 
-class socialdata(models.Model):
-    page_id = models.ForeignKey(fbquerymapper,on_delete=models.CASCADE)
-    message = models.CharField(max_length=2000)
+class SocialData(models.Model):
+    fbquerymapper = models.ForeignKey(FbQueryMapper,on_delete=models.CASCADE)
+    message = models.CharField(max_length=5000)
     created_date = models.DateField()
     sentiment = models.CharField(max_length=20)
     source = models.CharField(max_length=10)
@@ -39,8 +39,10 @@ class socialdata(models.Model):
     sad_count = models.IntegerField()
     wow_count = models.IntegerField()
     angry_count = models.IntegerField()
+    thankful_count = models.IntegerField()
+    shares= models.IntegerField()
     link = models.URLField(max_length=200 , unique= True)
 
-class socialdataquery(models.Model):
-    socialdata = models.ForeignKey(socialdata,on_delete=models.CASCADE)
-    query = models.ForeignKey(query, on_delete=models.CASCADE)
+class SocialDataQuery(models.Model):
+    socialdata = models.ForeignKey(SocialData,on_delete=models.CASCADE)
+    query = models.ForeignKey(Query, on_delete=models.CASCADE)
