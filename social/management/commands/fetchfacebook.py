@@ -42,15 +42,19 @@ class Command(BaseCommand):
     	            print "id    : ",data['id']
                     text = data["message"]
                     blob = TextBlob(text)
+                    i=0
+                    sentiment=0
                     for sentence in blob.sentences:
-                        print(sentence.sentiment.polarity)
-                    if (sentence.sentiment.polarity == 0.0):
+                        sentiment=sentiment+sentence.sentiment.polarity
+                        i=i+1
+                    sentiment=sentiment/i
+                    if (sentiment == 0.0):
                         senti= "Nuetral"
-                    elif (sentence.sentiment.polarity > 0.5):
+                    elif (sentiment > 0.5):
                         senti= "HighPositive"
-                    elif (sentence.sentiment.polarity > 0.0 and sentence.sentiment.polarity <= 0.5):
+                    elif (sentiment > 0.0 and sentiment <= 0.5):
                         senti= "Positive"
-                    elif (sentence.sentiment.polarity > -0.5 and sentence.sentiment.polarity < 0.0):
+                    elif (sentiment > -0.5 and sentiment < 0.0):
                         senti= "Negative"
                     else:
                         senti= "HighNegative"
@@ -66,13 +70,13 @@ class Command(BaseCommand):
                                  wow_count=data["reactions_wow"]["summary"]["total_count"],
                                  angry_count=data["reactions_angry"]["summary"]["total_count"],
                                  link = "https://facebook.com/" + data['id'],
-                                 fbquerymapper=fbquerymapper.id,
+                                 fbquerymapper=fbquerymapper,
                                  shares= data["shares"]["count"],
                                  thankful_count= data["reactions_thankful"]["summary"]["total_count"],
                                  )
                     c.save();
     	            try:
-                        input("Continue...")
+                        ("Continue...")
     	            except:
                         pass
 

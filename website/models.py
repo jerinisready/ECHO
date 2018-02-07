@@ -29,7 +29,7 @@ class FbQueryMapper(models.Model):
 class SocialData(models.Model):
     fbquerymapper = models.ForeignKey(FbQueryMapper,on_delete=models.CASCADE)
     message = models.CharField(max_length=5000)
-    created_date = models.DateField()
+    created_date = models.DateTimeField()
     sentiment = models.CharField(max_length=20)
     source = models.CharField(max_length=10)
     location = models.CharField(max_length=10)
