@@ -48,7 +48,7 @@ class Command(BaseCommand):
                         sentiment=sentiment+sentence.sentiment.polarity
                         i=i+1
                     sentiment=sentiment/i
-                    if (sentiment == 0.0):
+                    if (sentiment >= -0.1 and sentiment <= 0.1):
                         senti= "Nuetral"
                     elif (sentiment > 0.5):
                         senti= "HighPositive"
@@ -74,9 +74,10 @@ class Command(BaseCommand):
                                  shares= data["shares"]["count"],
                                  thankful_count= data["reactions_thankful"]["summary"]["total_count"],
                                  )
-                    c.save();
+
     	            try:
-                        ("Continue...")
+                        c.save();
+                        #("Continue...")
     	            except:
                         pass
 
