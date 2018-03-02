@@ -3,7 +3,6 @@ from geopy.geocoders import Nominatim
 import re
 import time
 import oauth2
-import requests
 import datetime
 from django.core.management.base import BaseCommand, CommandError
 import json
@@ -22,10 +21,14 @@ class Command(BaseCommand):
         client = oauth2.Client(consumer, token)
         q = Query.objects.filter(is_active=True)
         for query in q:
-            query = str(query.query)
+
+            querys = str(query.query)
+            print querys
+            q_id= query.id
+            print q_id
             since = datetime.datetime.now() - datetime.timedelta(days=7)
             d= since.date()
-            url = 'https://api.twitter.com/1.1/search/tweets.json?q=' + query+ '&since='+ str(d)
+            url = 'https://api.twitter.com/1.1/search/tweets.json?q=' + querys+ '&since='+ str(d)
             resp,content = client.request(url, method="GET", body="", headers= None)
             data_set= json.loads(content)
             for data in data_set["statuses"] :
@@ -77,6 +80,7 @@ class Command(BaseCommand):
                                shares=data["retweet_count"],
                                thankful_count=0,
                                user_name= data["user"]["screen_name"],
+                               query_id= q_id
                                )
                 try:
                     c.save();

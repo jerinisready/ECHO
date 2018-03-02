@@ -1,13 +1,14 @@
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from textblob import TextBlob
 from website.models import SocialData,FbQueryMapper
+import facebook, datetime
 
 class Command(BaseCommand):
 
         def handle(self, *args, **options):
-            q= FbQueryMapper.objects.all()
+            q= FbQueryMapper.objects.all().exclude(id=2)
             for fbquerymapper in q :
-                import facebook, datetime
+                print fbquerymapper.page
                 token = "741011062769592|tLH6FvFILJ0oOqoHGUKouycRuR4"
                 since = datetime.datetime.now() - datetime.timedelta(days=14)
                 d = since.date()
@@ -26,10 +27,18 @@ class Command(BaseCommand):
 
                 data_set = data_set['data']
                 for data in data_set:
-    	            print "\n"
+                    try:
+                        shares= data["shares"]["count"]
+                    except:
+                        shares= 0
+                    try:
+                        message = data["message"]
+                    except:
+                        pass
+                    print "\n"
     	            print "\n"
     	            print "USER    : ",data["from"]["name"]
-                    print "SHARES  : ",data["shares"]["count"]
+                    print "SHARES  : ",shares
     	            print "like   : ",data["reactions_like"]["summary"]["total_count"]
                     print "Love   : ", data["reactions_love"]["summary"]["total_count"]
                     print "wow   : ", data["reactions_wow"]["summary"]["total_count"]
@@ -37,10 +46,10 @@ class Command(BaseCommand):
                     print "sad   : ", data["reactions_sad"]["summary"]["total_count"]
                     print "angry   : ", data["reactions_angry"]["summary"]["total_count"]
                     print "thankful   : ", data["reactions_thankful"]["summary"]["total_count"]
-    	            print "Message : ",data["message"]
+    	            print "Message : ",message
     	            print "date    : ",data["created_time"]
     	            print "id    : ",data['id']
-                    text = data["message"]
+                    text = message
                     blob = TextBlob(text)
                     i=0
                     sentiment=0
@@ -58,7 +67,7 @@ class Command(BaseCommand):
                         senti= "Negative"
                     else:
                         senti= "HighNegative"
-                    c=SocialData(message= data["message"],
+                    c=SocialData(message= message,
                                  created_date= data["created_time"],
                                  sentiment= senti,
                                  source = "FB",
@@ -71,10 +80,9 @@ class Command(BaseCommand):
                                  angry_count=data["reactions_angry"]["summary"]["total_count"],
                                  link = "https://facebook.com/" + data['id'],
                                  fbquerymapper=fbquerymapper,
-                                 shares= data["shares"]["count"],
+                                 shares= shares,
                                  thankful_count= data["reactions_thankful"]["summary"]["total_count"],
                                  )
-
     	            try:
                         c.save();
                         #("Continue...")

@@ -1,0 +1,30 @@
+RESULT FOR THE TOPIC "{{topic.name}}"<br>
+---------------------------------------------------------<br><br>
+Total posts on  "{{topic.name}}" : {{total_count}}<br>
+Total FB posts                 : {{fb_count}}<br>
+Total Twitter posts            : {{twitter_count}}<br><br>
+---------------------------------------------------------<br><br>
+No. of posts on different categories<br><br>
+Highly Positive : {{hp_count}}<br>
+Positive:{{p_count}}<br>
+Neutral : {{nue_count}}<br>
+Negative: {{n_count}}<br>
+Highly Negative : {{hn_count}}<br>
+---------------------------------------------------------<br><br>
+FACEBOOK<br>
+---------------------------------------------------------<br><br>
+{% for i in fb_data  %}
+Post Data:{{i.message}}<br>
+shares : {{i.shares}}&nbsp;sentiment:{{i.sentiment}}&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="{{i.link}}">link</a><br><br>
+
+ {% endfor %}
+---------------------------------------------------------<br><br>
+TWITTER<br><br>
+---------------------------------------------------------<br><br>
+{% for i in twitter_data  %}
+Post Data:{{i.message}}<br>
+shares : {{i.shares}}&nbsp;sentiment:{{i.sentiment}}&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="{{i.link}}">link</a> location {{i.location}}<br><br>
+
+ {% endfor %}

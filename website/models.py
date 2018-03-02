@@ -43,7 +43,7 @@ class SocialData(models.Model):
     thankful_count = models.IntegerField()
     shares= models.IntegerField()
     link = models.URLField(max_length=200 , unique= True)
-
-class SocialDataQuery(models.Model):
-    socialdata = models.ForeignKey(SocialData,on_delete=models.CASCADE)
-    query = models.ForeignKey(Query, on_delete=models.CASCADE)
+    query = models.ForeignKey(Query, on_delete=models.CASCADE,default=0)
+#class SocialDataQuery(models.Model):
+#   socialdata = models.ForeignKey(SocialData,on_delete=models.CASCADE)
+#  query = models.ForeignKey(Query, on_delete=models.CASCADE)
