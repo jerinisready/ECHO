@@ -1,1 +1,1 @@
- web gunicorn --pythonpath src DTN.wsgi 
+ web gunicorn --pythonpath src sms.wsgi 
