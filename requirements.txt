@@ -25,4 +25,5 @@ vine==1.1.4
 virtualenv==15.1.0
 virtualenv-clone==0.2.6
 virtualenvwrapper==4.8.2
-
+gunicorn==19.7.1
+whitenoise==3.3.0
