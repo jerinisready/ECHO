@@ -6,7 +6,7 @@ import oauth2
 import datetime
 from django.core.management.base import BaseCommand, CommandError
 import json
-from website.models import Query,SocialData,FbQueryMapper
+from website.models import Query,SocialData,FbQueryMapper,SocialDataQuery
 from textblob import TextBlob
 class Command(BaseCommand):
 
@@ -80,14 +80,13 @@ class Command(BaseCommand):
                                shares=data["retweet_count"],
                                thankful_count=0,
                                user_name= data["user"]["screen_name"],
-                               query_id= q_id
                                )
+
                 try:
                     c.save();
                     ("Continue...")
                 except:
                     pass
-
 
 def Location_parser(location):
     country_code = \

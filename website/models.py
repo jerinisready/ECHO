@@ -1,20 +1,14 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.db import models
-import datetime
-from django.utils import timezone
 from django.contrib.auth.models import User
 # Create your models here.
-class request(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    request_data = models.CharField(max_length=500)
 
 class Query(models.Model):
     is_public = models.BooleanField()
     query = models.CharField(max_length=500)
     is_active = models.BooleanField()
     name = models.CharField(max_length=100)
-    request_id = models.ForeignKey(request,on_delete=models.CASCADE)
 
 class Token(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -43,7 +37,15 @@ class SocialData(models.Model):
     thankful_count = models.IntegerField()
     shares= models.IntegerField()
     link = models.URLField(max_length=200 , unique= True)
+    def __str__(self):
+        return "%s..." % self.message[:15]
     #query = models.ForeignKey(Query, on_delete=models.CASCADE,default=0)
 class SocialDataQuery(models.Model):
+   class Meta:
+       unique_together=[("socialdata","query")]
    socialdata = models.ForeignKey(SocialData,on_delete=models.CASCADE)
    query = models.ForeignKey(Query, on_delete=models.CASCADE)
+
+
+#SELECT * FROM website_socialdata WHERE message @@ to_tsquery('happy | happy&birthday');
+#SELECT  * FROM website_socialdata, to_tsquery('neutrino|(dark & matter)') query WHERE query @@ message

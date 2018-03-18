@@ -17,7 +17,9 @@ from django.template.loader import render_to_string
 from .forms import SignUpForm
 from django.contrib.auth.models import User
 from .tokens import account_activation_token
-from .models import Query, SocialData,Query
+from .models import Query, SocialData, Query, SocialDataQuery
+
+
 # Create your views here.
 
 
@@ -40,7 +42,7 @@ def user(request):
     r = template.render(context, request)
     return HttpResponse(r)
 def topics(request):
-    q = Query.objects.filter(is_public=True)
+    q = Query.objects.filter(is_public=True).exclude(id=0)
     template = loader.get_template('website/topics.html')
     context = {
         'query': q,
@@ -93,12 +95,15 @@ def activate(request, uidb64, token):
         return HttpResponse('Activation link is invalid!')
 
 def results(request,query_id):
-    q = SocialData.objects.filter(query=query_id)
+    q = SocialDataQuery.objects.filter(query__id=query_id).values_list('socialdata', flat=True)
+    q=SocialData.objects.filter(id__in=q)
     topic=Query.objects.get(id=query_id)
     total_posts=q.count()
-    q1=SocialData.objects.filter(source="FB").filter(query=query_id)
+    q1 = SocialDataQuery.objects.filter(query__id=query_id).values_list('socialdata', flat=True)
+    q1 = SocialData.objects.filter(id__in=q,source='FB')
     total_fb_data=q1.count()
-    q2=SocialData.objects.filter(source="TWITTER").filter(query=query_id)
+    q2 = SocialDataQuery.objects.filter(query__id=query_id).values_list('socialdata', flat=True)
+    q2 = SocialData.objects.filter(id__in=q).filter(source="TWITTER")
     total_twitter_data=q2.count()
     q3=q.filter(sentiment="HighNegative")
     hn_count=q3.count()
@@ -124,8 +129,6 @@ def results(request,query_id):
 
     r = template.render(context, request)
     return HttpResponse(r)
-
-
 
 class customlogin(LoginView):
     template_name="website/login.html"
