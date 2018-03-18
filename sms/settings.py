@@ -120,13 +120,29 @@ USE_L10N = True
 USE_TZ = True
 
 
+
+
+
+
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static'),
+)
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-STATIC_URL = '/static/'
+#STATIC_URL = '/static/'
 STATIC_FILES = '/staticfiles/'
-STATIC_ROOT = os.path.join(BASE_DIR, STATIC_FILES)
-STATICFILES_DIRS = ['.' + STATIC_URL, ]
+#STATIC_ROOT = os.path.join(BASE_DIR, STATIC_FILES)
+#STATICFILES_DIRS = ['.' + STATIC_URL, ]
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+
+
+
 
 
 # for login
