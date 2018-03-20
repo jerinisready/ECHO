@@ -39,7 +39,7 @@ def home(request):
 def user(request):
     user=request.user
     q=User.objects.filter(username=user)
-    template = loader.get_template('website/user.html')
+    template = loader.get_template('website/urs.html')
     context = {
 
         'user':user,
