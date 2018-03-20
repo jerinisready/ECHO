@@ -156,14 +156,13 @@ def checkout(request):
 
     new_status = Token (
     )
-    print 2344
+
     if request.method == "POST":
         tok  = request.POST.get("stripeToken")
-        print tok
     try:
         charge  = stripe.Charge.create(
             amount      = 333,
-            currency    = "INR",
+            currency    = "USR",
             source      = request.POST.get("stripeToken"),
             description = "The product charged to the user"
             )
