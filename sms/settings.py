@@ -77,12 +77,20 @@ WSGI_APPLICATION = 'sms.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    'local': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'sms',
         'USER': 'admin',
         'PASSWORD': 'password',
         'HOST': 'localhost',
+        'PORT': 5432,
+    },
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd5sra48dh9gf7a',
+        'USER': 'pgykxdqbbamphc',
+        'PASSWORD': '5836e3cf37f231785b179633598babd14f4edd5021bb67bacc1ef7fb457951b5',
+        'HOST': 'ec2-54-163-246-193.compute-1.amazonaws.com',
         'PORT': 5432,
     }
 }
@@ -178,3 +186,4 @@ ADMIN=(
 
 STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_PUBLIC_KEY", "pk_test_qKiQoF8KcHUCLEnhknxUceuN")
 STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "sk_test_WNZTOxLXJB1DfJuSjWFbUIb5")
+#pg_dump -d sms -h localhost --username admin --password -fp
