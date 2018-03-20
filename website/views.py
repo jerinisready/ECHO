@@ -2,6 +2,9 @@
 from __future__ import unicode_literals
 from __future__ import unicode_literals
 
+from django.conf import settings
+import stripe
+stripe.api_key = settings.STRIPE_SECRET_KEY
 from django.contrib.auth.views import LoginView
 from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
@@ -17,7 +20,7 @@ from django.template.loader import render_to_string
 from .forms import SignUpForm
 from django.contrib.auth.models import User
 from .tokens import account_activation_token
-from .models import Query, SocialData, Query, SocialDataQuery
+from .models import Query, SocialData, Query, SocialDataQuery,Token
 
 
 # Create your views here.
@@ -34,15 +37,18 @@ def home(request):
     return HttpResponse(r)
     # instead we can use return render(request, 'website/index.html', context)
 def user(request):
+    user=request.user
+    q=User.objects.filter(username=user)
     template = loader.get_template('website/user.html')
     context = {
 
+        'user':user,
     }
 
     r = template.render(context, request)
     return HttpResponse(r)
 def topics(request):
-    q = Query.objects.filter(is_public=True).exclude(id=0)
+    q = Query.objects.filter(is_public=True).exclude(is_active=False)
     template = loader.get_template('website/topics.html')
     context = {
         'query': q,
@@ -137,3 +143,41 @@ class customlogin(LoginView):
            return "/admin"
        else :
            return super(customlogin, self).get_success_url()
+def payments(request):
+
+    template = loader.get_template('website/js.html')
+    context = {
+
+    }
+
+    r = template.render(context, request)
+    return HttpResponse(r)
+def checkout(request):
+
+    new_status = Token (
+    )
+    print 2344
+    if request.method == "POST":
+        tok  = request.POST.get("stripeToken")
+        print tok
+    try:
+        charge  = stripe.Charge.create(
+            amount      = 333,
+            currency    = "INR",
+            source      = request.POST.get("stripeToken"),
+            description = "The product charged to the user"
+            )
+
+        #new_status.transaction_id   = charge.id
+        new_status= Token (token = "hhuh",
+                           is_active=True,
+                           user_id= 24,
+                           query_id=4,
+                           transaction_id=charge.id
+                          )
+    except stripe.error.CardError as ce:
+        return False, ce
+
+    else:
+        new_status.save()
+        return HttpResponse('thaNku')

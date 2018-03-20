@@ -175,3 +175,6 @@ ADMIN=(
 )
 
 #mail_admin(subject,body)
+
+STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_PUBLIC_KEY", "pk_test_qKiQoF8KcHUCLEnhknxUceuN")
+STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "sk_test_WNZTOxLXJB1DfJuSjWFbUIb5")

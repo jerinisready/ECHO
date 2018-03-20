@@ -5,7 +5,6 @@ from website.models import SocialDataQuery,Query
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-      #  import pdb;pdb.set_trace()
         q = Query.objects.filter(is_active=True)
         for query in q:
             t=SocialDataQuery.objects.filter(query=query).values_list("socialdata__id",flat=True)

@@ -16,6 +16,8 @@ class Token(models.Model):
     query = models.ForeignKey(Query, on_delete=models.CASCADE)
     is_active = models.BooleanField(default=True)
     validity = models.DateField(null=True, blank=True,)
+    transaction_id=models.CharField(max_length=64,null=True)
+
 
 class FbQueryMapper(models.Model):
     page = models.CharField (max_length=200)
@@ -39,7 +41,7 @@ class SocialData(models.Model):
     link = models.URLField(max_length=200 , unique= True)
     def __str__(self):
         return "%s..." % self.message[:15]
-    #query = models.ForeignKey(Query, on_delete=models.CASCADE,default=0)
+
 class SocialDataQuery(models.Model):
    class Meta:
        unique_together=[("socialdata","query")]
