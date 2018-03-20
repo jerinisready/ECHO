@@ -165,7 +165,7 @@ EMAIL_HOST_USER = 'projectsms2018@gmail.com'
 EMAIL_HOST_PASSWORD = 'projectsms@2018'
 DEFAULT_EMAIL_FROM= 'projectsms2018@gmail.com'
 EMAIL_USE_TLS = True
-
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 ADMIN=(
     (

@@ -1,5 +1,5 @@
 (function() {
-  var AjaxMonitor, Bar, DocumentMonitor, ElementMonitor, ElementTracker, EventLagMonitor, Evented, Events, NoTargetError, Pace, RequestIntercept, SOURCE_KEYS, Scaler, SocketRequestTracker, XHRRequestTracker, animation, avgAmplitude, bar, cancelAnimation, cancelAnimationFrame, defaultOptions, extend, extendNative, getFromDOM, getIntercept, handlePushState, ignoreStack, init, now, options, requestAnimationFrame, result, runAnimation, scalers, shouldIgnoreURL, shouldTrack, source, sources, uniScaler, _WebSocket, _XDomainRequest, _XMLHttpRequest, _i, _intercept, _len, _pushState, _ref, _ref1, _replaceState,
+  var AjaxMonitor, Bar, DocumentMonitor, ElementMonitor, ElementTracker, EventLagMonitor, Evented, Events, NoTargetError, Pace, RequestIntercept, SOURCE_KEYS, Scaler, SocketRequestTracker, XHRRequestTracker, animation, avgAmplitude, bar, cancelAnimation, cancelAnimationFrame, defaultOptions, extend, extendNative, getFromDOM, getIntercept, handlePushState, ignoreStack, init, now, options, requestAnimationFrame, result, runAnimation, scalers, shouldIgnoreURL, shouldTrack, source, sources, uniScaler, _WebSocket, _XDomainRequest, , _i, _intercept, _len, _pushState, _ref, _ref1, _replaceState,
     __slice = [].slice,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -342,7 +342,7 @@
 
   })();
 
-  _XMLHttpRequest = window.XMLHttpRequest;
+
 
   _XDomainRequest = window.XDomainRequest;
 
@@ -434,14 +434,14 @@
           return _open.apply(req, arguments);
         };
       };
-      window.XMLHttpRequest = function(flags) {
+       {
         var req;
-        req = new _XMLHttpRequest(flags);
+
         monitorXHR(req);
         return req;
       };
       try {
-        extendNative(window.XMLHttpRequest, _XMLHttpRequest);
+
       } catch (_error) {}
       if (_XDomainRequest != null) {
         window.XDomainRequest = function() {
