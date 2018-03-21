@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'logout/^$', views.user, name='logout'),
     url(r'^topics/$', views.topics, name='topic'),
     url(r'^topics/result/(?P<query_id>[0-9]+)/$', views.results, name='result'),
+    url(r'^user/result/(?P<query_id>[0-9]+)/$', views.results, name='result'),
     url(r'^$', views.home, name='home'),
     url(r'user/$',views.user,name='user'),
     url(r'signup/$',views.signup, name='signup'),

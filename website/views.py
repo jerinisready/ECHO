@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 from __future__ import unicode_literals
 
+import datetime
 from django.conf import settings
 import stripe
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -39,14 +40,20 @@ def home(request):
 def user(request):
     user=request.user
     q=User.objects.filter(username=user)
-    template = loader.get_template('website/urs.html')
-    context = {
+    if q:
+        q = Token.objects.filter(user_id=user.id).values_list('query_id', flat=True)
+        q = Query.objects.filter(id__in=q)
+        template = loader.get_template('website/urs.html')
+        context = {
 
         'user':user,
-    }
+        'i':q,
+        }
 
-    r = template.render(context, request)
-    return HttpResponse(r)
+        r = template.render(context, request)
+        return HttpResponse(r)
+    else:
+        return HttpResponse('''You are not logged in .please <a href="/login">login</a>''')
 def topics(request):
     q = Query.objects.filter(is_public=True).exclude(is_active=False)
     template = loader.get_template('website/topics.html')
@@ -117,24 +124,61 @@ def results(request,query_id):
     nue_count = q.filter(sentiment="Nuetral").count()
     p_count = q.filter(sentiment="Positive").count()
     hp_count = q.filter(sentiment="HighPositive").count()
-    template = loader.get_template('website/result.html')
-    context = {
-        'total_count':total_posts,
-        'fb_count':total_fb_data,
-        'twitter_count':total_twitter_data,
-        'hn_count':hn_count,
-        'n_count':n_count,
-        'nue_count':nue_count,
-        'p_count':p_count,
-        'hp_count':hp_count,
-        'fb_data': q1 ,
-        'twitter_data': q2,
-        'topic':topic
+    if topic.is_public==True:
+        template = loader.get_template('website/result.html')
+        context = {
+            'total_count': total_posts,
+            'fb_count': total_fb_data,
+            'twitter_count': total_twitter_data,
+            'hn_count': hn_count,
+            'n_count': n_count,
+            'nue_count': nue_count,
+            'p_count': p_count,
+            'hp_count': hp_count,
+            'fb_data': q1,
+            'twitter_data': q2,
+            'topic': topic,
+        }
+        r = template.render(context, request)
+        return HttpResponse(r)
+    else :
+        user = request.user
+        q = User.objects.filter(username=user)
+        p = Token.objects.filter(user_id=user.id).values_list('query_id', flat=True)
+        r = Query.objects.filter(id__in=p)
+        s = Token.objects.filter(query_id=query_id)
+        today = datetime.datetime.now().date()
+        for data in s:
+            validity=data.validity
+            print validity
+            if(today>validity):
+                data.is_active=False
+                data.save()
+        if q and topic in r and data.is_active==False:
+            return HttpResponse("payment should be done")
+        if q and topic in r and data.is_active==True:
+            template=loader.get_template('website/userresult.html')
+            context = {
+                'total_count': total_posts,
+                'fb_count': total_fb_data,
+                'twitter_count': total_twitter_data,
+                'hn_count': hn_count,
+                'n_count': n_count,
+                'nue_count': nue_count,
+                'p_count': p_count,
+                'hp_count': hp_count,
+                'fb_data': q1,
+                'twitter_data': q2,
+                'topic': topic,
+                'i':r,
+                'valid':data,
+            }
+            r = template.render(context, request)
+            return HttpResponse(r)
 
-    }
+        else:
+            return HttpResponse('''Request error:private surveys visible for their owners <br> You are not logged in .please <a href="/login">login</a>for your survey''')
 
-    r = template.render(context, request)
-    return HttpResponse(r)
 
 class customlogin(LoginView):
     template_name="website/login.html"
