@@ -150,7 +150,6 @@ def results(request,query_id):
         today = datetime.datetime.now().date()
         for data in s:
             validity=data.validity
-            print validity
             if(today>validity):
                 data.is_active=False
                 data.save()
