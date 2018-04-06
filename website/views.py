@@ -154,7 +154,16 @@ def results(request,query_id):
                 data.is_active=False
                 data.save()
         if q and topic in r and data.is_active==False:
-            return HttpResponse("payment should be done")
+            template = loader.get_template('website/js.html')
+            context = {
+                'valid': data,
+                'topic': topic,
+                'i': r,
+                'qid':query_id,
+            }
+
+            r = template.render(context, request)
+            return HttpResponse(r)
         if q and topic in r and data.is_active==True:
             template=loader.get_template('website/userresult.html')
             context = {
@@ -169,8 +178,8 @@ def results(request,query_id):
                 'fb_data': q1,
                 'twitter_data': q2,
                 'topic': topic,
-                'i':r,
-                'valid':data,
+                'i': r,
+                'valid': data,
             }
             r = template.render(context, request)
             return HttpResponse(r)
@@ -195,31 +204,26 @@ def payments(request):
 
     r = template.render(context, request)
     return HttpResponse(r)
-def checkout(request):
-
-    new_status = Token (
-    )
-
+def checkout(request,query_id):
+    s =Token.objects.filter(query_id=query_id)
     if request.method == "POST":
         tok  = request.POST.get("stripeToken")
     try:
+
         charge  = stripe.Charge.create(
-            amount      = 333,
-            currency    = "USR",
+            amount      = 33300,
+            currency    = "INR",
             source      = request.POST.get("stripeToken"),
             description = "The product charged to the user"
             )
-
-        #new_status.transaction_id   = charge.id
-        new_status= Token (token = "hhuh",
-                           is_active=True,
-                           user_id= 24,
-                           query_id=4,
-                           transaction_id=charge.id
-                          )
+        for new_status in s:
+            validity=new_status.validity+datetime.timedelta(days=30)
+            new_status.is_active=True
+            new_status.validity=validity
+            new_status.transaction_id=charge.id
     except stripe.error.CardError as ce:
         return False, ce
 
     else:
         new_status.save()
-        return HttpResponse('thaNku')
+        return HttpResponse('PAYMENT IS SUCCESSFUL AND YOUR SURVEY WILL BE CONTINUED<br>click <a href="/user">Here</a>to go back')
