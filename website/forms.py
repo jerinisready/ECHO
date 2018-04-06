@@ -11,3 +11,12 @@ class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', )
+
+class Requestform():
+    input1 = forms.CharField()
+    option1= forms.ChoiceField(required=False)
+    input2 = forms.CharField()
+    input3 = forms.CharField()
+    input4 = forms.CharField()
+    input5 = forms.CharField()
+    input6 = forms.CharField()

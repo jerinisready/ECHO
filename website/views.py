@@ -195,6 +195,8 @@ class customlogin(LoginView):
            return "/admin"
        else :
            return super(customlogin, self).get_success_url()
+
+
 def payments(request):
 
     template = loader.get_template('website/js.html')
@@ -204,6 +206,8 @@ def payments(request):
 
     r = template.render(context, request)
     return HttpResponse(r)
+
+
 def checkout(request,query_id):
     s =Token.objects.filter(query_id=query_id)
     if request.method == "POST":
@@ -227,3 +231,13 @@ def checkout(request,query_id):
     else:
         new_status.save()
         return HttpResponse('PAYMENT IS SUCCESSFUL AND YOUR SURVEY WILL BE CONTINUED<br>click <a href="/user">Here</a>to go back')
+
+
+def add(request):
+    template = loader.get_template('website/user.html')
+    context = {
+
+    }
+
+    r = template.render(context, request)
+    return HttpResponse(r)
