@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -78,12 +77,20 @@ WSGI_APPLICATION = 'sms.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    'local': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'sms',
         'USER': 'admin',
         'PASSWORD': 'password',
         'HOST': 'localhost',
+        'PORT': 5432,
+    },
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'd5sra48dh9gf7a',
+        'USER': 'pgykxdqbbamphc',
+        'PASSWORD': '5836e3cf37f231785b179633598babd14f4edd5021bb67bacc1ef7fb457951b5',
+        'HOST': 'ec2-54-163-246-193.compute-1.amazonaws.com',
         'PORT': 5432,
     }
 }
@@ -121,8 +128,73 @@ USE_L10N = True
 USE_TZ = True
 
 
+
+
+
+
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+STATIC_URL = '/static/'
+'''STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static'),
+)'''
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-STATIC_URL = '/static/'
+#STATIC_URL = '/static/'
+STATIC_FILES = '/staticfiles/'
+#STATIC_ROOT = os.path.join(BASE_DIR, STATIC_FILES)
+STATICFILES_DIRS = ['.' + STATIC_URL, ]
 
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+
+
+
+
+
+# for login
+
+LOGIN_REDIRECT_URL = 'user'
+
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+'''EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'projectsms2018@gmail.com'
+EMAIL_HOST_PASSWORD = 'projectsms@2018'
+DEFAULT_EMAIL_FROM= 'projectsms2018@gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+'''
+
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'projectsms'
+EMAIL_HOST_PASSWORD = 'projectsms@2018'
+DEFAULT_EMAIL_FROM= 'info@sms.com'
+EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+
+
+ADMIN=(
+    (
+        "sidharth","sidhu.svs@gmail.com"
+    ),
+    (
+        "nissam","nissam514@gmail.com"
+    ),
+    (
+        "joel","joelvarapuram@gmail.com"
+    ),
+    (
+        "admin","projectsms2018@gmail.com"
+    )
+)
+
+#mail_admin(subject,body)
+
+STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_PUBLIC_KEY", "pk_test_qKiQoF8KcHUCLEnhknxUceuN")
+STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "sk_test_WNZTOxLXJB1DfJuSjWFbUIb5")
+#pg_dump -d sms -h localhost --username admin --password -fp

@@ -11,7 +11,7 @@ __pycache__/
 env/
 build/
 develop-eggs/
-dist/
+#dist/
 downloads/
 eggs/
 .eggs/
@@ -103,3 +103,5 @@ ENV/
 #db 
 db.sqlite3
 
+.idea/*
+*/migrations/*

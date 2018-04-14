@@ -65,3 +65,13 @@ git push origin <branch>        # to update code from github site specfied branc
 
 git rm --cached <filename>  	# remove a commited file from git
 
+
+
+
+
+
+
+
+
+
+
